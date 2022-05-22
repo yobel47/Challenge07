@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import {
+  FlatList,
   ScrollView, StyleSheet, View,
 } from 'react-native';
 import { DummyProfile, ILNullPhoto } from '../../assets';
 import { ButtonComponent, Header, List } from '../../component';
+import { databaseRef } from '../../config/Firebase/index.js';
 import { colors, getData, onLogScreenView } from '../../utils';
 
 function DashboardScreen({ navigation }) {
@@ -13,11 +15,16 @@ function DashboardScreen({ navigation }) {
     bio: '',
   });
 
+  const [allUser, setallUser] = useState([]);
+  const [allUserBackup, setallUserBackup] = useState([]);
+
   useEffect(() => {
     navigation.addListener('focus', () => {
       getUserData();
     });
     onLogScreenView('DashboardScreen');
+    getAllUser();
+    console.log('all user', allUser);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -29,67 +36,32 @@ function DashboardScreen({ navigation }) {
     });
   };
 
+  const getAllUser = () => {
+    databaseRef()
+      .ref('users/')
+      .once('value')
+      .then((snapshot) => {
+        setallUser(
+          Object.values(snapshot.val()).filter((it) => it.uid !== profile.uid),
+        );
+      });
+  };
+
   return (
     <View style={styles.page}>
       <Header type="dashboard-profile" title={profile.fullname} photo={profile.photo} onPress={() => navigation.navigate('ProfileScreen', profile)} />
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <List
-          type="next"
-          profile={DummyProfile}
-          name="Rehan"
-          chat="baring"
-          onPress={() => navigation.navigate('ChatScreen')}
-        />
-        <List
-          type="next"
-          profile={DummyProfile}
-          name="Rehan"
-          chat="baring"
-          onPress={() => navigation.navigate('ChatScreen')}
-        />
-        <List
-          type="next"
-          profile={DummyProfile}
-          name="Rehan"
-          chat="baring"
-          onPress={() => navigation.navigate('ChatScreen')}
-        />
-        <List
-          type="next"
-          profile={DummyProfile}
-          name="Rehan"
-          chat="baring"
-          onPress={() => navigation.navigate('ChatScreen')}
-        />
-        <List
-          type="next"
-          profile={DummyProfile}
-          name="Rehan"
-          chat="baring"
-          onPress={() => navigation.navigate('ChatScreen')}
-        />
-        <List
-          type="next"
-          profile={DummyProfile}
-          name="Rehan"
-          chat="baring"
-          onPress={() => navigation.navigate('ChatScreen')}
-        />
-        <List
-          type="next"
-          profile={DummyProfile}
-          name="Rehan"
-          chat="baring"
-          onPress={() => navigation.navigate('ChatScreen')}
-        />
-        <List
-          type="next"
-          profile={DummyProfile}
-          name="Rehan"
-          chat="baring"
-          onPress={() => navigation.navigate('ChatScreen')}
-        />
-      </ScrollView>
+      <FlatList
+        showsVerticalScrollIndicator={false}
+        keyExtractor={(Item, index) => index.toString()}
+        data={allUser}
+        renderItem={({ item }) => (
+          <List
+            name={item.fullname}
+            chat={item.bio}
+            profile={item.photo}
+          />
+        )}
+      />
       <ButtonComponent icon="account-multiple" type="floating-btn" onPress={() => navigation.navigate('AllUserScreen')} />
     </View>
 
