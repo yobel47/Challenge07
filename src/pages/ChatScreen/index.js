@@ -8,7 +8,7 @@ function ChatScreen() {
   }, []);
   return (
     <View style={styles.page}>
-      <Text>ChatScreen tim</Text>
+      <Text>ChatScreen tim 2</Text>
     </View>
   );
 }
