@@ -1,8 +1,8 @@
 /* eslint-disable react/no-unstable-nested-components */
+import React from 'react';
 import {
   Image, StyleSheet, Text, TouchableOpacity, View,
 } from 'react-native';
-import React from 'react';
 import {
   IconEditProfile,
   IconHelp,
@@ -32,16 +32,15 @@ export default function List({
     return <IconEditProfile />;
   }
 
-  let photo;
-  if (profile.length > 1) {
-    photo = { uri: profile };
-  } else {
-    photo = ILNullPhoto;
-  }
-
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
-      {icon ? <Icon /> : <Image source={photo} style={styles.imageStyle} />}
+      {icon ? <Icon /> : (
+        <Image
+          source={profile.length > 1 ? { uri: profile }
+            : ILNullPhoto}
+          style={styles.imageStyle}
+        />
+      )}
       <View style={styles.titleWrapper}>
         <Text style={styles.names}>{name}</Text>
         <Text style={styles.chat}>{chat}</Text>
