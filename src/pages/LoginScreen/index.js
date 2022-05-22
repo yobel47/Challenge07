@@ -8,7 +8,7 @@ import * as Animatable from 'react-native-animatable';
 import { useDispatch, useSelector } from 'react-redux';
 import auth from '@react-native-firebase/auth';
 import analytics from '@react-native-firebase/analytics';
-import { IconApp2 } from '../../assets';
+import { IconApp2, ILNullPhoto } from '../../assets';
 import {
   ButtonComponent, Gap, Input, LinkComponent,
 } from '../../component';
@@ -134,7 +134,7 @@ function LoginScreen({ navigation }) {
                   fullname: res.user.displayName,
                   email: res.user.email,
                   uid: res.user.uid,
-                  photo: res.user.photoURL,
+                  photo: ILNullPhoto,
                   bio: 'null',
                 };
                 dispatch(setLoading(false));
