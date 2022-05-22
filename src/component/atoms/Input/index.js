@@ -12,15 +12,13 @@ function Input({
     return (
       <View>
         <TextInput
-          mode="outlined"
           label={label}
           value={value}
-          disabled={disable}
+          mode="outlined"
           onChangeText={onChangeText}
           activeOutlineColor={colors.lineTextInput}
-          style={styles.input}
-          keyboardType="email-address"
           outlineColor={colors.outlineInput}
+          style={styles.input}
           left={(
             <TextInput.Icon name="email" />
             )}

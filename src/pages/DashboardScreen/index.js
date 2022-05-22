@@ -31,8 +31,8 @@ function DashboardScreen({ navigation }) {
 
   return (
     <View style={styles.page}>
+      <Header type="dashboard-profile" title={profile.fullname} photo={profile.photo} onPress={() => navigation.navigate('ProfileScreen', profile)} />
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Header type="dashboard-profile" title={profile.fullname} photo={profile.photo} onPress={() => navigation.navigate('ProfileScreen', profile)} />
         <List
           type="next"
           profile={DummyProfile}

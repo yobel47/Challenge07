@@ -46,14 +46,18 @@ function LoginScreen({ navigation }) {
 
   const loginUser = () => {
     dispatch(setLoading(true));
-    login(form.email, form.password)
+    login(form.email.trim(), form.password)
       .then((res) => {
         dispatch(setLoading(false));
         databaseRef()
           .ref(`users/${res.user.uid}/`)
           .once('value')
           .then((resDB) => {
-            // console.log('data user : ', resDB.val());
+            analytics().logEvent('Login', {
+              method: 'Email_Password',
+            });
+            analytics().setUserId(resDB.val().uid);
+            analytics().setUserProperty('Login_with', 'Email_Password');
             if (resDB.val()) {
               storeData('user', resDB.val());
               navigation.replace('DashboardScreen');
