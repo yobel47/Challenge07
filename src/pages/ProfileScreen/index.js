@@ -4,7 +4,9 @@ import { StyleSheet, View } from 'react-native';
 import {
   Gap, Header, List, Profile,
 } from '../../component';
-import { colors, onLogScreenView, showError } from '../../utils';
+import {
+  colors, onLogScreenView, removeData, showError,
+} from '../../utils';
 
 export default function ProfileScreen({ navigation, route }) {
   const profile = route.params;
@@ -12,7 +14,7 @@ export default function ProfileScreen({ navigation, route }) {
     auth()
       .signOut()
       .then(() => {
-        navigation.replace('LoginScreen');
+        removeData('user').then(() => navigation.replace('LoginScreen'));
       })
       .catch((err) => {
         showError(err.message);

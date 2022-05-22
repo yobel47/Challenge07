@@ -1,14 +1,15 @@
 /* eslint-disable react/no-unstable-nested-components */
+import React from 'react';
 import {
   Image, StyleSheet, Text, TouchableOpacity, View,
 } from 'react-native';
-import React from 'react';
 import {
   IconEditProfile,
   IconHelp,
   IconLanguage,
   IconNext,
   IconRate,
+  ILNullPhoto,
 } from '../../../assets';
 import { colors, fonts } from '../../../utils';
 
@@ -30,9 +31,16 @@ export default function List({
     }
     return <IconEditProfile />;
   }
+
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
-      {icon ? <Icon /> : <Image source={profile} style={styles.imageStyle} />}
+      {icon ? <Icon /> : (
+        <Image
+          source={profile.length > 1 ? { uri: profile }
+            : ILNullPhoto}
+          style={styles.imageStyle}
+        />
+      )}
       <View style={styles.titleWrapper}>
         <Text style={styles.names}>{name}</Text>
         <Text style={styles.chat}>{chat}</Text>

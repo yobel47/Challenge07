@@ -27,7 +27,7 @@ function RegisterScreen({ navigation }) {
   const dispatch = useDispatch();
 
   const [photo, setPhoto] = useState(ILNullPhoto);
-  const [photoForDB, setPhotoForDB] = useState('');
+  const [photoForDB, setPhotoForDB] = useState(ILNullPhoto);
   const [hasPhoto, setHasPhoto] = useState(false);
 
   const validateEmail = (text) => {
