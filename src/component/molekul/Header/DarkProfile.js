@@ -44,13 +44,13 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 20,
     fontFamily: fonts.primary[600],
-    color: colors.White,
+    color: colors.text.primary,
     textAlign: 'center',
   },
   desc: {
     fontSize: 14,
     fontFamily: fonts.primary[400],
-    color: colors.text.subTitle,
+    color: colors.text.subtitle,
     marginTop: 6,
     textAlign: 'center',
   },
