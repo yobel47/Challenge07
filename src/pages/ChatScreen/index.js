@@ -11,7 +11,7 @@ function ChatScreen({ navigation }) {
   return (
     <View style={styles.page}>
       <Header type="dark-profile" title="Mandi" photo={DummyProfile} desc="tidur" onPress={() => navigation.goBack()} />
-      <Text>Hallo</Text>
+      <Text>Hallo 1</Text>
     </View>
   );
 }
