@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
+import moment from 'moment';
 import { colors, fonts } from '../../../utils';
 
 export default function IsMe({ text, date }) {
@@ -8,7 +9,7 @@ export default function IsMe({ text, date }) {
       <View style={styles.chatContent}>
         <Text style={styles.text}>{text}</Text>
       </View>
-      <Text style={styles.date}>{date}</Text>
+      <Text style={styles.date}>{moment(date).format('LLL')}</Text>
     </View>
   );
 }
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 14,
     fontFamily: fonts.primary.normal,
-    color: colors.text.primary,
+    color: colors.text.black,
   },
   date: {
     fontFamily: fonts.primary.normal,
