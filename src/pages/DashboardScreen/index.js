@@ -17,11 +17,9 @@ function DashboardScreen({ navigation }) {
   const [allUser, setallUser] = useState([]);
 
   useEffect(() => {
-    navigation.addListener('focus', () => {
-      getUserData();
-    });
-    onLogScreenView('DashboardScreen');
     getAllUser();
+    onLogScreenView('DashboardScreen');
+    getUserData();
     // console.log('all user', allUser);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -58,6 +56,7 @@ function DashboardScreen({ navigation }) {
             chat={item.bio}
             profile={item.photo}
             type="next"
+            onPress={() => navigation.navigate('ChatScreen', item)}
           />
         )}
       />
