@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { DummyProfile } from '../../assets';
 import { Header } from '../../component';
 import { colors, onLogScreenView } from '../../utils';
@@ -11,7 +11,7 @@ function ChatScreen({ navigation }) {
   return (
     <View style={styles.page}>
       <Header type="dark-profile" title="Mandi" photo={DummyProfile} desc="tidur" onPress={() => navigation.goBack()} />
-
+      <Text>Hallo 1</Text>
     </View>
   );
 }
