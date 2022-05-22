@@ -54,6 +54,7 @@ function ChatScreen({ navigation, route }) {
       setMsg('');
     });
   };
+  halo;
 
   useEffect(() => {
     onLogScreenView('ChatScreen');
