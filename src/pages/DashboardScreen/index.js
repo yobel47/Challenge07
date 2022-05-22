@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import {
-  FlatList,
-  ScrollView, StyleSheet, View,
+  FlatList, StyleSheet, View,
 } from 'react-native';
-import { DummyProfile, ILNullPhoto } from '../../assets';
+import { ILNullPhoto } from '../../assets';
 import { ButtonComponent, Header, List } from '../../component';
 import { databaseRef } from '../../config/Firebase/index.js';
 import { colors, getData, onLogScreenView } from '../../utils';
@@ -16,7 +15,6 @@ function DashboardScreen({ navigation }) {
   });
 
   const [allUser, setallUser] = useState([]);
-  const [allUserBackup, setallUserBackup] = useState([]);
 
   useEffect(() => {
     navigation.addListener('focus', () => {
@@ -24,7 +22,7 @@ function DashboardScreen({ navigation }) {
     });
     onLogScreenView('DashboardScreen');
     getAllUser();
-    console.log('all user', allUser);
+    // console.log('all user', allUser);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -59,6 +57,7 @@ function DashboardScreen({ navigation }) {
             name={item.fullname}
             chat={item.bio}
             profile={item.photo}
+            type="next"
           />
         )}
       />
