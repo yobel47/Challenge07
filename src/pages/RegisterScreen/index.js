@@ -48,6 +48,7 @@ function RegisterScreen({ navigation }) {
     onLogScreenView('RegisterScreen');
   }, []);
 
+  blabla;
   const onRegister = () => {
     dispatch(setLoading(true));
     register(form.email, form.password)
