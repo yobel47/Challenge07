@@ -1,15 +1,23 @@
-import { StyleSheet, Text, View } from 'react-native';
 import React, { useEffect } from 'react';
+import { StyleSheet } from 'react-native';
+import { Searchbar } from 'react-native-paper';
 import { onLogScreenView } from '../../utils';
 
 function AllUserScreen() {
   useEffect(() => {
     onLogScreenView('AllUserScreen');
   }, []);
+
+  const [searchQuery, setSearchQuery] = React.useState('');
+
+  const onChangeSearch = query => setSearchQuery(query);
+
   return (
-    <View style={styles.page}>
-      <Text>AllUserScreen</Text>
-    </View>
+    <Searchbar
+      placeholder="Search"
+      onChangeText={onChangeSearch}
+      value={searchQuery}
+    />
   );
 }
 
