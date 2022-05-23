@@ -93,17 +93,17 @@ export default function UpdateProfile({ navigation }) {
         <Gap height={26} />
         <Input
           label="Full Name"
-          value={profile.fullName}
+          value={profile.fullname}
           onChangeText={(value) => onChangeText('fullname', value)}
         />
         <Gap height={24} />
         <Input
           label="Bio"
-          value={profile.profession}
+          value={profile.bio}
           onChangeText={(value) => onChangeText('bio', value)}
         />
         <Gap height={24} />
-        <Input label="Email" value={profile.email} disable visible={false} />
+        <Input label="Email" value={profile.email} disable visible={false} editable={false} selectTextOnFocus={false} cannotEdited />
         <Gap height={24} />
         <Gap height={40} />
         <ButtonComponent title="Save Profile" onPress={update} />
