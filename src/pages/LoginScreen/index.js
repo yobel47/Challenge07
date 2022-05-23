@@ -1,3 +1,5 @@
+import analytics from '@react-native-firebase/analytics';
+import auth from '@react-native-firebase/auth';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import React, { useEffect } from 'react';
 import {
@@ -6,8 +8,6 @@ import {
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { useDispatch, useSelector } from 'react-redux';
-import auth from '@react-native-firebase/auth';
-import analytics from '@react-native-firebase/analytics';
 import { IconApp2 } from '../../assets';
 import {
   ButtonComponent, Gap, Input, LinkComponent,
@@ -46,14 +46,18 @@ function LoginScreen({ navigation }) {
 
   const loginUser = () => {
     dispatch(setLoading(true));
-    login(form.email, form.password)
+    login(form.email.trim(), form.password)
       .then((res) => {
         dispatch(setLoading(false));
         databaseRef()
           .ref(`users/${res.user.uid}/`)
           .once('value')
           .then((resDB) => {
-            // console.log('data user : ', resDB.val());
+            analytics().logEvent('Login', {
+              method: 'Email_Password',
+            });
+            analytics().setUserId(resDB.val().uid);
+            analytics().setUserProperty('Login_with', 'Email_Password');
             if (resDB.val()) {
               storeData('user', resDB.val());
               navigation.replace('DashboardScreen');
@@ -126,20 +130,26 @@ function LoginScreen({ navigation }) {
                 });
                 analytics().setUserId(res.user.uid);
                 analytics().setUserProperty('Login_with', 'Google');
-                const data = {
-                  fullname: res.user.displayName,
-                  email: res.user.email,
-                  uid: res.user.uid,
-                  photo: res.user.photoURL,
-                  bio: 'null',
-                };
-                dispatch(setLoading(false));
-                showSuccess('Login Sukses');
-                navigation.replace('DashboardScreen');
                 databaseRef()
                   .ref(`users/${res.user.uid}/`)
-                  .set(data);
-                storeData('user', data);
+                  .once('value')
+                  .then((response) => {
+                    const dataNull = null;
+                    const data = {
+                      fullname: dataNull ? res.user.displayName : response.val().fullname,
+                      email: dataNull ? res.user.email : response.val().email,
+                      uid: dataNull ? res.user.uid : response.val().uid,
+                      photo: dataNull ? res.user.photoURL : response.val().photo,
+                      bio: dataNull ? 'null' : response.val().bio,
+                    };
+                    dispatch(setLoading(false));
+                    showSuccess('Login Sukses');
+                    navigation.replace('DashboardScreen');
+                    databaseRef()
+                      .ref(`users/${res.user.uid}/`)
+                      .set(data);
+                    storeData('user', data);
+                  });
               })
                 .catch((err) => {
                   dispatch(setLoading(false));

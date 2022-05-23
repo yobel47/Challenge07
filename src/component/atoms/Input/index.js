@@ -5,22 +5,27 @@ import { HelperText, TextInput } from 'react-native-paper';
 import { fonts, colors } from '../../../utils';
 
 function Input({
-  label, value, onChangeText, visible, disable,
+  label, value, onChangeText, visible, disable, editable, selectTextOnFocus, cannotEdited,
 }) {
   const [passwordVisible, setPasswordVisible] = useState(true);
   if (label === 'Email') {
     return (
       <View>
         <TextInput
-          mode="outlined"
           label={label}
           value={value}
-          disabled={disable}
+          mode="outlined"
           onChangeText={onChangeText}
           activeOutlineColor={colors.lineTextInput}
+          outlineColor={cannotEdited ? colors.disable.background : colors.outlineInput}
           style={styles.input}
-          keyboardType="email-address"
-          outlineColor={colors.outlineInput}
+          editable={editable}
+          theme={{
+            colors: {
+              text: cannotEdited ? colors.disable.text : colors.text.black,
+            },
+          }}
+          selectTextOnFocus={selectTextOnFocus}
           left={(
             <TextInput.Icon name="email" />
             )}
@@ -88,5 +93,6 @@ const styles = StyleSheet.create({
   input: {
     fontFamily: fonts.primary[600],
     fontSize: 16,
+    color: colors.text.secondary,
   },
 });

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import auth from '@react-native-firebase/auth';
 import { IconApp2 } from '../../assets';
 import {
   colors, fonts, onLogScreenView, windowHeight, windowWidth,
@@ -11,7 +12,22 @@ function SplashScreen({ navigation }) {
     setTimeout(() => {
       navigation.replace('LoginScreen');
     }, 3000);
-  });
+
+    // const subscriber = auth().onAuthStateChanged((user) => {
+    //   console.log(user);
+    //   if (user) {
+    //     setTimeout(() => {
+    //       navigation.replace('DashboardScreen');
+    //     }, 3000);
+    //   } else {
+    //     setTimeout(() => {
+    //       navigation.replace('LoginScreen');
+    //     }, 3000);
+    //   }
+    // });
+
+    // return subscriber;
+  }, [navigation]);
   return (
     <View style={styles.page}>
       <IconApp2 style={styles.image} />

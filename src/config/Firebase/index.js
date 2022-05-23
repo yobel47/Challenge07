@@ -7,6 +7,8 @@ export const register = (email, pass) => auth().createUserWithEmailAndPassword(e
 
 export const forgetPassword = (email) => auth().sendPasswordResetEmail(email);
 
+export const userLoggedIn = (user) => auth().onAuthStateChanged(user);
+
 export const signInSocialMedia = (credential) => auth().signInWithCredential(credential);
 export const databaseRef = () => firebase
   .app()

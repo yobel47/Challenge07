@@ -1,1 +1,1 @@
-export * from './Firebase/index.js';
+export * from './Firebase';
