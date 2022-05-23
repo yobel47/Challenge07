@@ -6,7 +6,7 @@ import {
 import uuid from 'react-native-uuid';
 import { ILNullPhoto } from '../../assets';
 import { ButtonComponent, Header, List } from '../../component';
-import { databaseRef } from '../../config/Firebase/index.js';
+import { databaseRef } from '../../config/Firebase';
 import { colors, getData, onLogScreenView } from '../../utils';
 
 function DashboardScreen({ navigation }) {
