@@ -1,3 +1,5 @@
+import analytics from '@react-native-firebase/analytics';
+import auth from '@react-native-firebase/auth';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import React, { useEffect } from 'react';
 import {
@@ -6,9 +8,7 @@ import {
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { useDispatch, useSelector } from 'react-redux';
-import auth from '@react-native-firebase/auth';
-import analytics from '@react-native-firebase/analytics';
-import { IconApp2, ILNullPhoto } from '../../assets';
+import { IconApp2 } from '../../assets';
 import {
   ButtonComponent, Gap, Input, LinkComponent,
 } from '../../component';
@@ -134,7 +134,7 @@ function LoginScreen({ navigation }) {
                   fullname: res.user.displayName,
                   email: res.user.email,
                   uid: res.user.uid,
-                  photo: ILNullPhoto,
+                  photo: res.user.photoURL,
                   bio: 'null',
                 };
                 dispatch(setLoading(false));
