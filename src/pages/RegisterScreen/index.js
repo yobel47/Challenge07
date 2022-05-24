@@ -3,6 +3,7 @@ import {
   Image,
   Keyboard, StyleSheet,
   Text, TouchableOpacity, TouchableWithoutFeedback, View,
+  ScrollView
 } from 'react-native';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { useDispatch, useSelector } from 'react-redux';
@@ -152,8 +153,8 @@ function RegisterScreen({ navigation }) {
   };
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View style={styles.container}>
-        <View style={{ flex: 1 }}>
+      <ScrollView style={styles.container} contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between', flexDirection: 'column' }}>
+        <View style={{ flex: 1, height: 185}}>
           <View style={{ flex: 1, width: null, backgroundColor: colors.background.secondary }} />
           <View style={styles.profile}>
             <TouchableOpacity style={styles.avatarWrapper} onPress={getImage}>
@@ -184,7 +185,7 @@ function RegisterScreen({ navigation }) {
             <LinkComponent disable={stateGlobal.isLoading} title="Login" color={colors.text.secondary} size={16} onPress={() => navigation.replace('LoginScreen')} />
           </View>
         </View>
-      </View>
+      </ScrollView>
     </TouchableWithoutFeedback>
   );
 }
@@ -193,7 +194,8 @@ export default RegisterScreen;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flexGrow: 1,
+    backgroundColor: colors.background.secondary,
   },
   titleText: {
     position: 'absolute',
@@ -219,7 +221,8 @@ const styles = StyleSheet.create({
   bottomView: {
     backgroundColor: colors.background.primary,
     opacity: 0.95,
-    position: 'absolute',
+    // position: 'absolute',
+    flexGrow: 1,
     bottom: 0,
     left: 0,
     right: 0,
@@ -250,7 +253,7 @@ const styles = StyleSheet.create({
   },
   profile: {
     position: 'absolute',
-    top: 50,
+    top: 40,
     left: 0,
     right: 0,
     justifyContent: 'center',
