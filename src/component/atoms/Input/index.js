@@ -105,7 +105,8 @@ function Input({
           <TextInput.Icon name="account-circle" />
             )}
       />
-
+        <HelperText visible={false}>
+        </HelperText>
     </View>
   );
 }
