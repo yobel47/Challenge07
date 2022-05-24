@@ -2,8 +2,9 @@
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import {
-  FlatList, StyleSheet, View,
+  FlatList, ImageBackground, StyleSheet, View,
 } from 'react-native';
+import { BackgroundChat } from '../../assets';
 import {
   ChatItem, Header, InputChat,
 } from '../../component';
@@ -68,7 +69,7 @@ function ChatScreen({ navigation, route }) {
   }, [receiverData.roomId]);
 
   return (
-    <View style={styles.page}>
+    <ImageBackground source={BackgroundChat} style={styles.page}>
       <Header type="dark-profile" title={receiverData.fullname} photo={receiverData.photo.length > 1 ? { uri: receiverData.photo } : receiverData.photo} desc={receiverData.bio} onPress={() => navigation.goBack()} />
       <View style={styles.content}>
         <FlatList
@@ -99,7 +100,7 @@ function ChatScreen({ navigation, route }) {
         onButtonPress={sendMsg}
         targetChat={receiverData}
       />
-    </View>
+    </ImageBackground>
   );
 }
 
