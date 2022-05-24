@@ -1,7 +1,7 @@
 import analytics from '@react-native-firebase/analytics';
 import auth from '@react-native-firebase/auth';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Keyboard, StyleSheet,
   Text, TouchableWithoutFeedback, View,
@@ -28,13 +28,36 @@ function LoginScreen({ navigation }) {
     email: '',
     password: '',
   });
+  const [emailCorrect, setEmailCorrect] = useState(false);
+  const [emailEmpty, setEmailEmpty] = useState(false);
+  const [passwordCorrect, setPasswordCorrect] = useState(false);
 
   const validateEmail = (text) => {
-    setForm('email', text);
+    if(text == ''){
+      setEmailEmpty(true)
+      setForm('email', '');
+    }else{
+      setForm('email', text);
+      const reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w\w+)+$/;
+      if (reg.test(text) === false) {
+        setEmailCorrect(true);
+        setEmailEmpty(false)
+        setForm('email', text);
+      } else {
+        setEmailCorrect(false);
+        setForm('email', text);
+      }
+    }
   };
 
   const validatePassword = (text) => {
-    setForm('password', text);
+    if(text == ''){
+      setPasswordCorrect(true)
+      setForm('password', '');
+    }else{
+      setPasswordCorrect(false)
+      setForm('password', text);
+    }
   };
 
   useEffect(() => {
@@ -101,12 +124,12 @@ function LoginScreen({ navigation }) {
         </Animatable.View>
         <View style={styles.bottomView}>
           <Text style={styles.loginText}>Login</Text>
-          <Input label="Email" onChangeText={(text) => validateEmail(text)} value={form.email} visible={form.email.length <= 0} />
+          <Input label="Email" onChangeText={(text) => validateEmail(text)} value={form.email} visible={emailCorrect} errorType={emailEmpty}/>
           <Input
-            label="password"
+            label="Password"
             onChangeText={(text) => validatePassword(text)}
             value={form.password}
-            visible={form.password.length <= 0}
+            visible={passwordCorrect}
           />
 
           <View style={styles.linkWrapper}>

@@ -5,7 +5,7 @@ import { HelperText, TextInput } from 'react-native-paper';
 import { fonts, colors } from '../../../utils';
 
 function Input({
-  label, value, onChangeText, visible, disable, editable, selectTextOnFocus, cannotEdited,
+  label, value, onChangeText, visible, disable, editable, selectTextOnFocus, cannotEdited, errorType
 }) {
   const [passwordVisible, setPasswordVisible] = useState(true);
   if (label === 'Email') {
@@ -32,12 +32,12 @@ function Input({
         />
 
         <HelperText type="error" visible={visible}>
-          Email Required
+          {errorType ? 'Email Required' : 'Email Invalid'}
         </HelperText>
       </View>
     );
   }
-  if (label === 'password') {
+  if (label === 'Password') {
     return (
       <View>
         <TextInput
@@ -61,7 +61,7 @@ function Input({
               )}
         />
         <HelperText type="error" visible={visible}>
-          Password Required
+          {errorType ? 'Password Required' : 'Password need atleast 6 characters'}
         </HelperText>
       </View>
     );
