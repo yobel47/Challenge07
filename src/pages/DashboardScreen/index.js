@@ -47,7 +47,7 @@ function DashboardScreen({ navigation }) {
   const getChatList = () => {
     databaseRef().ref(`chatlist/${profile.uid}/`)
       .once('value')
-      .then((snapshot) => {
+      .then(async (snapshot) => {
         // console.log(Object.values(snapshot.val()));
         const array = Object.values(snapshot.val());
 
@@ -58,7 +58,7 @@ function DashboardScreen({ navigation }) {
 
         const dataMsgNotNull = sortedArray.filter((it) => it.lastMsg !== '');
 
-        console.log('DataMsgNotNull', dataMsgNotNull);
+        // console.log('DataMsgNotNull', dataMsgNotNull);
         setallUser(
           dataMsgNotNull,
         );
