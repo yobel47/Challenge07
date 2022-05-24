@@ -19,25 +19,30 @@ function DashboardScreen({ navigation }) {
   const [allUser, setallUser] = useState([]);
 
   useEffect(() => {
+    let isMounted = true;
+
+    const getUserData = () => {
+      if (isMounted) {
+        getData('user').then((res) => {
+          const data = res;
+          data.photo = res?.photo?.length > 1 ? { uri: res.photo } : ILNullPhoto;
+          setProfile(res);
+        });
+      }
+    };
+
     getAllUser();
     onLogScreenView('DashboardScreen');
     getUserData();
 
     return () => {
+      isMounted = false;
       setProfile({});
       setallUser([]);
     };
     // console.log('all user', allUser);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const getUserData = () => {
-    getData('user').then((res) => {
-      const data = res;
-      data.photo = res?.photo?.length > 1 ? { uri: res.photo } : ILNullPhoto;
-      setProfile(res);
-    });
-  };
 
   const getAllUser = () => {
     databaseRef()
