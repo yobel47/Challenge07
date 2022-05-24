@@ -3,7 +3,7 @@ import {
   Image,
   Keyboard, StyleSheet,
   Text, TouchableOpacity, TouchableWithoutFeedback, View,
-  ScrollView
+  ScrollView,
 } from 'react-native';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { useDispatch, useSelector } from 'react-redux';
@@ -73,10 +73,10 @@ function RegisterScreen({ navigation }) {
   };
 
   const validateFullName = (text) => {
-    if(text==''){
+    if (text == '') {
       setFullNameEmpty(true);
       setForm('fullname', '');
-    }else{
+    } else {
       setFullNameEmpty(false);
       setForm('fullname', text);
     }
@@ -154,7 +154,7 @@ function RegisterScreen({ navigation }) {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <ScrollView style={styles.container} contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between', flexDirection: 'column' }}>
-        <View style={{ flex: 1, height: 185}}>
+        <View style={{ flex: 1, height: 185 }}>
           <View style={{ flex: 1, width: null, backgroundColor: colors.background.secondary }} />
           <View style={styles.profile}>
             <TouchableOpacity style={styles.avatarWrapper} onPress={getImage}>

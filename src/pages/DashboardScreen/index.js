@@ -65,7 +65,7 @@ function DashboardScreen({ navigation }) {
         // console.log({ ...dataChatList });
       });
   };
-  
+
   const createChatList = (data) => {
     databaseRef()
       .ref(`/chatlist/${profile.uid}/${data.uid}`)

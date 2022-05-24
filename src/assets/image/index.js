@@ -5,5 +5,5 @@ import BackgroundChat from './BackgroundChat.png';
 export {
   ILNullPhoto,
   DummyProfile,
-  BackgroundChat
+  BackgroundChat,
 };

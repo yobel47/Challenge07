@@ -38,7 +38,7 @@ function Input({
       </View>
     );
   }
-  if(label === 'Full Name') {
+  if (label === 'Full Name') {
     return (
       <View>
         <TextInput
@@ -105,8 +105,7 @@ function Input({
           <TextInput.Icon name="account-circle" />
             )}
       />
-        <HelperText visible={false}>
-        </HelperText>
+      <HelperText visible={false} />
     </View>
   );
 }
