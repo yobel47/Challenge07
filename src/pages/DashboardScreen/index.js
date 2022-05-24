@@ -56,8 +56,11 @@ function DashboardScreen({ navigation }) {
           .getTime());
         // console.log('sortedArray ', sortedArray);
 
+        const dataMsgNotNull = sortedArray.filter((it) => it.lastMsg !== '');
+
+        console.log('DataMsgNotNull', dataMsgNotNull);
         setallUser(
-          sortedArray,
+          dataMsgNotNull,
         );
         // console.log({ ...dataChatList });
       });
