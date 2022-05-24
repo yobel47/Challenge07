@@ -6,7 +6,7 @@ import {
 import uuid from 'react-native-uuid';
 import { ILNullPhoto } from '../../assets';
 import { ButtonComponent, Header, List } from '../../component';
-import { databaseRef } from '../../config/Firebase/index.js';
+import { databaseRef } from '../../config/Firebase';
 import { colors, getData, onLogScreenView } from '../../utils';
 
 function DashboardScreen({ navigation }) {
@@ -22,6 +22,11 @@ function DashboardScreen({ navigation }) {
     getAllUser();
     onLogScreenView('DashboardScreen');
     getUserData();
+
+    return () => {
+      setProfile({});
+      setallUser([]);
+    };
     // console.log('all user', allUser);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -46,7 +51,6 @@ function DashboardScreen({ navigation }) {
   };
 
   const createChatList = (data) => {
-    // console.log('data', data);
     databaseRef()
       .ref(`/chatlist/${profile.uid}/${data.uid}`)
       .once('value')
@@ -77,7 +81,17 @@ function DashboardScreen({ navigation }) {
 
           navigation.navigate('ChatScreen', { receiverData: data, profile });
         } else {
-          navigation.navigate('ChatScreen', { receiverData: snapshot.val(), profile });
+          databaseRef()
+            .ref(`/chatlist/${profile.uid}/${data.uid}`)
+            .update({
+              ...snapshot.val(), photo: data.photo, fullname: data.fullname, bio: data.bio,
+            });
+          navigation.navigate('ChatScreen', {
+            receiverData: {
+              ...snapshot.val(), photo: data.photo, fullname: data.fullname, bio: data.bio,
+            },
+            profile,
+          });
         }
       });
   };
