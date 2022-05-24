@@ -5,7 +5,8 @@ import { HelperText, TextInput } from 'react-native-paper';
 import { fonts, colors } from '../../../utils';
 
 function Input({
-  label, value, onChangeText, visible, disable, editable, selectTextOnFocus, cannotEdited, errorType
+  label, value, onChangeText,
+  visible, disable, editable, selectTextOnFocus, cannotEdited, errorType,
 }) {
   const [passwordVisible, setPasswordVisible] = useState(true);
   if (label === 'Email') {

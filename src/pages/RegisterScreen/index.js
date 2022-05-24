@@ -37,15 +37,15 @@ function RegisterScreen({ navigation }) {
   const [fullNameEmpty, setFullNameEmpty] = useState(false);
 
   const validateEmail = (text) => {
-    if(text == ''){
-      setEmailEmpty(true)
+    if (text == '') {
+      setEmailEmpty(true);
       setForm('email', '');
-    }else{
+    } else {
       setForm('email', text);
       const reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w\w+)+$/;
       if (reg.test(text) === false) {
         setEmailCorrect(true);
-        setEmailEmpty(false)
+        setEmailEmpty(false);
         setForm('email', text);
       } else {
         setEmailCorrect(false);
@@ -55,14 +55,14 @@ function RegisterScreen({ navigation }) {
   };
 
   const validatePassword = (text) => {
-    if(text == ''){
+    if (text == '') {
       setPasswordEmpty(true);
       setForm('password', '');
-    }else{
+    } else {
       setForm('password', text);
-      if (text.length<6) {
+      if (text.length < 6) {
         setPasswordCorrect(true);
-        setPasswordEmpty(false)
+        setPasswordEmpty(false);
         setForm('password', text);
       } else {
         setPasswordCorrect(false);
@@ -167,7 +167,7 @@ function RegisterScreen({ navigation }) {
           <Text style={styles.RegisterText}>Register</Text>
           <Input label="Full Name" onChangeText={(text) => validateFullName(text)} value={form.fullname} visible={fullNameEmpty} />
           <Input label="Bio" onChangeText={(text) => validateBio(text)} value={form.bio} />
-          <Input label="Email" onChangeText={(text) => validateEmail(text)} value={form.email} visible={emailCorrect} errorType={emailEmpty}/>
+          <Input label="Email" onChangeText={(text) => validateEmail(text)} value={form.email} visible={emailCorrect} errorType={emailEmpty} />
           <Input
             label="Password"
             onChangeText={(text) => validatePassword(text)}
