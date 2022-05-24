@@ -36,16 +36,17 @@ const styles = StyleSheet.create({
   },
 
   avatar: {
-    height: 46,
-    width: 46,
+    height: 50,
+    width: 50,
     borderRadius: 46 / 2,
+    marginRight: 8,
   },
 
   name: {
-    fontSize: 20,
+    fontSize: 22,
     fontFamily: fonts.primary[600],
     color: colors.text.black,
-    textAlign: 'center',
+    fontWeight: 'bold',
   },
 
 });

@@ -10,7 +10,7 @@ function AllUserScreen() {
 
   const [searchQuery, setSearchQuery] = React.useState('');
 
-  const onChangeSearch = query => setSearchQuery(query);
+  const onChangeSearch = (query) => setSearchQuery(query);
 
   return (
     <Searchbar
