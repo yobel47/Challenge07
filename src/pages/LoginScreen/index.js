@@ -29,15 +29,24 @@ function LoginScreen({ navigation }) {
     password: '',
   });
   const [emailCorrect, setEmailCorrect] = useState(false);
+  const [emailEmpty, setEmailEmpty] = useState(false);
   const [passwordCorrect, setPasswordCorrect] = useState(false);
 
   const validateEmail = (text) => {
     if(text == ''){
-      setEmailCorrect(true)
+      setEmailEmpty(true)
       setForm('email', '');
     }else{
-      setEmailCorrect(false)
       setForm('email', text);
+      const reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w\w+)+$/;
+      if (reg.test(text) === false) {
+        setEmailCorrect(true);
+        setEmailEmpty(false)
+        setForm('email', text);
+      } else {
+        setEmailCorrect(false);
+        setForm('email', text);
+      }
     }
   };
 
@@ -115,9 +124,9 @@ function LoginScreen({ navigation }) {
         </Animatable.View>
         <View style={styles.bottomView}>
           <Text style={styles.loginText}>Login</Text>
-          <Input label="Email" onChangeText={(text) => validateEmail(text)} value={form.email} visible={emailCorrect} />
+          <Input label="Email" onChangeText={(text) => validateEmail(text)} value={form.email} visible={emailCorrect} errorType={emailEmpty}/>
           <Input
-            label="password"
+            label="Password"
             onChangeText={(text) => validatePassword(text)}
             value={form.password}
             visible={passwordCorrect}
