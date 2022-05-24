@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {FlatList, StyleSheet, View} from 'react-native';
 import {Searchbar} from 'react-native-paper';
+import uuid from 'react-native-uuid';
 import {ILNullPhoto} from '../../assets';
 import List from '../../component/molekul/List';
 import {databaseRef} from '../../config/Firebase';
@@ -83,6 +84,7 @@ function AllUserScreen() {
   return (
     <View style={styles.page}>
       <Searchbar
+        style={{marginHorizontal: 8, borderRadius: 25, marginTop:10, marginBottom:15}}
         placeholder="Search"
         onChangeText={onChangeSearch}
         value={searchQuery}
@@ -110,6 +112,6 @@ export default AllUserScreen;
 const styles = StyleSheet.create({
   page: {
     flex: 1,
-  
+    backgroundColor:'white'
   },
 });
