@@ -37,6 +37,28 @@ function Input({
       </View>
     );
   }
+  if(label === 'Full Name') {
+    return (
+      <View>
+        <TextInput
+          mode="outlined"
+          style={styles.input}
+          label={label}
+          value={value}
+          onChangeText={onChangeText}
+          activeOutlineColor={colors.lineTextInput}
+          disabled={disable}
+          outlineColor={colors.outlineInput}
+          left={(
+            <TextInput.Icon name="account-circle" />
+              )}
+        />
+        <HelperText type="error" visible={visible}>
+          Full Name Required
+        </HelperText>
+      </View>
+    );
+  }
   if (label === 'Password') {
     return (
       <View>

@@ -34,6 +34,7 @@ function RegisterScreen({ navigation }) {
   const [emailEmpty, setEmailEmpty] = useState(false);
   const [passwordCorrect, setPasswordCorrect] = useState(false);
   const [passwordEmpty, setPasswordEmpty] = useState(false);
+  const [fullNameEmpty, setFullNameEmpty] = useState(false);
 
   const validateEmail = (text) => {
     if(text == ''){
@@ -55,7 +56,7 @@ function RegisterScreen({ navigation }) {
 
   const validatePassword = (text) => {
     if(text == ''){
-      setPasswordEmpty(true)
+      setPasswordEmpty(true);
       setForm('password', '');
     }else{
       setForm('password', text);
@@ -71,7 +72,13 @@ function RegisterScreen({ navigation }) {
   };
 
   const validateFullName = (text) => {
-    setForm('fullname', text);
+    if(text==''){
+      setFullNameEmpty(true);
+      setForm('fullname', '');
+    }else{
+      setFullNameEmpty(false);
+      setForm('fullname', text);
+    }
   };
 
   const validateBio = (text) => {
@@ -158,7 +165,7 @@ function RegisterScreen({ navigation }) {
         </View>
         <View style={styles.bottomView}>
           <Text style={styles.RegisterText}>Register</Text>
-          <Input label="Full Name" onChangeText={(text) => validateFullName(text)} value={form.fullname} />
+          <Input label="Full Name" onChangeText={(text) => validateFullName(text)} value={form.fullname} visible={fullNameEmpty} />
           <Input label="Bio" onChangeText={(text) => validateBio(text)} value={form.bio} />
           <Input label="Email" onChangeText={(text) => validateEmail(text)} value={form.email} visible={emailCorrect} errorType={emailEmpty}/>
           <Input
