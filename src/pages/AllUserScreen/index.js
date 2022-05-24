@@ -13,10 +13,15 @@ function AllUserScreen({ navigation }) {
     photo: ILNullPhoto,
     fullname: '',
     bio: '',
+    uid: '',
   });
 
   const [searchQuery, setSearchQuery] = React.useState('');
-  const onChangeSearch = (query) => setSearchQuery(query);
+  const onChangeSearch = (query) => {
+    console.log(query);
+    setSearchQuery(query);
+    getAllUser(profile.uid,query);
+  }
   const [allUser, setallUser] = useState([]);
 
   const getUserData = () => {
@@ -24,18 +29,21 @@ function AllUserScreen({ navigation }) {
       const data = res;
       data.photo = res?.photo?.length > 1 ? { uri: res.photo } : ILNullPhoto;
       setProfile(res);
+      getAllUser(res.uid,'');
     });
   };
-  const getAllUser = () => {
+
+  const getAllUser = (uid,text) => {
     databaseRef()
       .ref('users/')
       .once('value')
       .then((snapshot) => {
         setallUser(
-          Object.values(snapshot.val()).filter((it) => it.uid !== profile.uid),
+          Object.values(snapshot.val()).filter((it) => ((it.fullname).toLowerCase().includes(text))&&((it.uid) !== uid)),
         );
       });
   };
+
   const createChatList = (data) => {
     // console.log('data', data);
     databaseRef()
@@ -77,7 +85,7 @@ function AllUserScreen({ navigation }) {
   };
 
   useEffect(() => {
-    getAllUser();
+    // getAllUser();
     onLogScreenView('AllUserScreen');
     getUserData();
   // eslint-disable-next-line react-hooks/exhaustive-deps
