@@ -37,7 +37,7 @@ function Input({
       </View>
     );
   }
-  if (label === 'password') {
+  if (label === 'Password') {
     return (
       <View>
         <TextInput
@@ -61,7 +61,7 @@ function Input({
               )}
         />
         <HelperText type="error" visible={visible}>
-          Password Required
+          {errorType ? 'Password Required' : 'Password need atleast 6 characters'}
         </HelperText>
       </View>
     );

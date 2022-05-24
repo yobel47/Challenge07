@@ -30,16 +30,50 @@ function RegisterScreen({ navigation }) {
   const [photoForDB, setPhotoForDB] = useState(ILNullPhoto);
   const [hasPhoto, setHasPhoto] = useState(false);
 
+  const [emailCorrect, setEmailCorrect] = useState(false);
+  const [emailEmpty, setEmailEmpty] = useState(false);
+  const [passwordCorrect, setPasswordCorrect] = useState(false);
+  const [passwordEmpty, setPasswordEmpty] = useState(false);
+
   const validateEmail = (text) => {
-    setForm('email', text);
+    if(text == ''){
+      setEmailEmpty(true)
+      setForm('email', '');
+    }else{
+      setForm('email', text);
+      const reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w\w+)+$/;
+      if (reg.test(text) === false) {
+        setEmailCorrect(true);
+        setEmailEmpty(false)
+        setForm('email', text);
+      } else {
+        setEmailCorrect(false);
+        setForm('email', text);
+      }
+    }
   };
 
   const validatePassword = (text) => {
-    setForm('password', text);
+    if(text == ''){
+      setPasswordEmpty(true)
+      setForm('password', '');
+    }else{
+      setForm('password', text);
+      if (text.length<6) {
+        setPasswordCorrect(true);
+        setPasswordEmpty(false)
+        setForm('password', text);
+      } else {
+        setPasswordCorrect(false);
+        setForm('password', text);
+      }
+    }
   };
+
   const validateFullName = (text) => {
     setForm('fullname', text);
   };
+
   const validateBio = (text) => {
     setForm('bio', text);
   };
@@ -126,12 +160,13 @@ function RegisterScreen({ navigation }) {
           <Text style={styles.RegisterText}>Register</Text>
           <Input label="Full Name" onChangeText={(text) => validateFullName(text)} value={form.fullname} />
           <Input label="Bio" onChangeText={(text) => validateBio(text)} value={form.bio} />
-          <Input label="Email" onChangeText={(text) => validateEmail(text)} value={form.email} visible={form.email.length <= 0} />
+          <Input label="Email" onChangeText={(text) => validateEmail(text)} value={form.email} visible={emailCorrect} errorType={emailEmpty}/>
           <Input
-            label="password"
+            label="Password"
             onChangeText={(text) => validatePassword(text)}
             value={form.password}
-            visible={form.password.length <= 0}
+            visible={passwordCorrect}
+            errorType={passwordEmpty}
           />
           <ButtonComponent title="Register" label="Register" onPress={() => onRegister()} disable={!(form.password && form.email) || stateGlobal.isLoading} />
           <View style={styles.goLoginWrapper}>
