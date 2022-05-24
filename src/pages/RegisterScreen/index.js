@@ -38,7 +38,7 @@ function RegisterScreen({ navigation }) {
   const [fullNameEmpty, setFullNameEmpty] = useState(false);
 
   const validateEmail = (text) => {
-    if (text == '') {
+    if (text === '') {
       setEmailEmpty(true);
       setForm('email', '');
     } else {
@@ -56,7 +56,7 @@ function RegisterScreen({ navigation }) {
   };
 
   const validatePassword = (text) => {
-    if (text == '') {
+    if (text === '') {
       setPasswordEmpty(true);
       setForm('password', '');
     } else {
@@ -73,7 +73,7 @@ function RegisterScreen({ navigation }) {
   };
 
   const validateFullName = (text) => {
-    if (text == '') {
+    if (text === '') {
       setFullNameEmpty(true);
       setForm('fullname', '');
     } else {
