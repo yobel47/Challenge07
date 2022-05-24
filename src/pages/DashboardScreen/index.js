@@ -17,6 +17,21 @@ function DashboardScreen({ navigation }) {
   });
 
   const [allUser, setallUser] = useState([]);
+  const getChatList = () => {
+    databaseRef().ref(`chatlist/${profile.uid}/`)
+      .on('value', (snapshot) => {
+        if (snapshot.val()) {
+          const array = Object.values(snapshot.val());
+          const sortedArray = array.sort((a, b) => new Date(b.sendTime)
+            .getTime() - new Date(a.sendTime)
+            .getTime());
+          const dataMsgNotNull = sortedArray.filter((it) => it.lastMsg !== '');
+          setallUser(
+            dataMsgNotNull,
+          );
+        }
+      });
+  };
 
   useEffect(() => {
     let isMounted = true;
@@ -42,29 +57,7 @@ function DashboardScreen({ navigation }) {
     };
     // console.log('all user', allUser);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const getChatList = () => {
-    databaseRef().ref(`chatlist/${profile.uid}/`)
-      .once('value')
-      .then(async (snapshot) => {
-        // console.log(Object.values(snapshot.val()));
-        const array = Object.values(snapshot.val());
-
-        const sortedArray = array.sort((a, b) => new Date(b.sendTime)
-          .getTime() - new Date(a.sendTime)
-          .getTime());
-        // console.log('sortedArray ', sortedArray);
-
-        const dataMsgNotNull = sortedArray.filter((it) => it.lastMsg !== '');
-
-        // console.log('DataMsgNotNull', dataMsgNotNull);
-        setallUser(
-          dataMsgNotNull,
-        );
-        // console.log({ ...dataChatList });
-      });
-  };
+  }, [getChatList()]);
 
   const createChatList = (data) => {
     databaseRef()
