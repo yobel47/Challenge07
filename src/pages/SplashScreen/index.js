@@ -9,24 +9,20 @@ import {
 function SplashScreen({ navigation }) {
   useEffect(() => {
     onLogScreenView('SplashScreen');
-    setTimeout(() => {
-      navigation.replace('LoginScreen');
-    }, 3000);
 
-    // const subscriber = auth().onAuthStateChanged((user) => {
-    //   console.log(user);
-    //   if (user) {
-    //     setTimeout(() => {
-    //       navigation.replace('DashboardScreen');
-    //     }, 3000);
-    //   } else {
-    //     setTimeout(() => {
-    //       navigation.replace('LoginScreen');
-    //     }, 3000);
-    //   }
-    // });
+    const subscriber = auth().onAuthStateChanged((user) => {
+      if (user) {
+        setTimeout(() => {
+          navigation.replace('DashboardScreen');
+        }, 3000);
+      } else {
+        setTimeout(() => {
+          navigation.replace('LoginScreen');
+        }, 3000);
+      }
+    });
 
-    // return subscriber;
+    return subscriber;
   }, [navigation]);
   return (
     <View style={styles.page}>
