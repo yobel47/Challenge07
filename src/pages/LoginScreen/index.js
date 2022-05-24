@@ -33,15 +33,15 @@ function LoginScreen({ navigation }) {
   const [passwordCorrect, setPasswordCorrect] = useState(false);
 
   const validateEmail = (text) => {
-    if(text == ''){
-      setEmailEmpty(true)
+    if (text === '') {
+      setEmailEmpty(true);
       setForm('email', '');
-    }else{
+    } else {
       setForm('email', text);
       const reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w\w+)+$/;
       if (reg.test(text) === false) {
         setEmailCorrect(true);
-        setEmailEmpty(false)
+        setEmailEmpty(false);
         setForm('email', text);
       } else {
         setEmailCorrect(false);
@@ -51,11 +51,11 @@ function LoginScreen({ navigation }) {
   };
 
   const validatePassword = (text) => {
-    if(text == ''){
-      setPasswordCorrect(true)
+    if (text === '') {
+      setPasswordCorrect(true);
       setForm('password', '');
-    }else{
-      setPasswordCorrect(false)
+    } else {
+      setPasswordCorrect(false);
       setForm('password', text);
     }
   };
@@ -124,7 +124,7 @@ function LoginScreen({ navigation }) {
         </Animatable.View>
         <View style={styles.bottomView}>
           <Text style={styles.loginText}>Login</Text>
-          <Input label="Email" onChangeText={(text) => validateEmail(text)} value={form.email} visible={emailCorrect} errorType={emailEmpty}/>
+          <Input label="Email" onChangeText={(text) => validateEmail(text)} value={form.email} visible={emailCorrect} errorType={emailEmpty} />
           <Input
             label="Password"
             onChangeText={(text) => validatePassword(text)}

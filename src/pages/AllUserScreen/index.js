@@ -1,19 +1,14 @@
-import React, {useEffect, useState} from 'react';
-import {FlatList, StyleSheet, View} from 'react-native';
-import {Searchbar} from 'react-native-paper';
+/* eslint-disable no-param-reassign */
+import React, { useEffect, useState } from 'react';
+import { FlatList, StyleSheet, View } from 'react-native';
+import { Searchbar } from 'react-native-paper';
 import uuid from 'react-native-uuid';
-import {ILNullPhoto} from '../../assets';
+import { ILNullPhoto } from '../../assets';
 import List from '../../component/molekul/List';
-import {databaseRef} from '../../config/Firebase';
-import {getData, onLogScreenView} from '../../utils';
+import { databaseRef } from '../../config/Firebase';
+import { getData, onLogScreenView } from '../../utils';
 
-function AllUserScreen() {
-  useEffect(() => {
-    getAllUser();
-    onLogScreenView('AllUserScreen');
-    getUserData();
-  }, []);
-
+function AllUserScreen({ navigation }) {
   const [profile, setProfile] = useState({
     photo: ILNullPhoto,
     fullname: '',
@@ -21,13 +16,13 @@ function AllUserScreen() {
   });
 
   const [searchQuery, setSearchQuery] = React.useState('');
-  const onChangeSearch = query => setSearchQuery(query);
+  const onChangeSearch = (query) => setSearchQuery(query);
   const [allUser, setallUser] = useState([]);
 
   const getUserData = () => {
-    getData('user').then(res => {
+    getData('user').then((res) => {
       const data = res;
-      data.photo = res?.photo?.length > 1 ? {uri: res.photo} : ILNullPhoto;
+      data.photo = res?.photo?.length > 1 ? { uri: res.photo } : ILNullPhoto;
       setProfile(res);
     });
   };
@@ -35,18 +30,18 @@ function AllUserScreen() {
     databaseRef()
       .ref('users/')
       .once('value')
-      .then(snapshot => {
+      .then((snapshot) => {
         setallUser(
-          Object.values(snapshot.val()).filter(it => it.uid !== profile.uid),
+          Object.values(snapshot.val()).filter((it) => it.uid !== profile.uid),
         );
       });
   };
-  const createChatList = data => {
+  const createChatList = (data) => {
     // console.log('data', data);
     databaseRef()
       .ref(`/chatlist/${profile.uid}/${data.uid}`)
       .once('value')
-      .then(snapshot => {
+      .then((snapshot) => {
         // console.log('User data: ', snapshot.val());
 
         if (snapshot.val() == null) {
@@ -71,7 +66,7 @@ function AllUserScreen() {
             .update(data);
           // .then(() => console.log('Data updated.'));
 
-          navigation.navigate('ChatScreen', {receiverData: data, profile});
+          navigation.navigate('ChatScreen', { receiverData: data, profile });
         } else {
           navigation.navigate('ChatScreen', {
             receiverData: snapshot.val(),
@@ -81,10 +76,19 @@ function AllUserScreen() {
       });
   };
 
+  useEffect(() => {
+    getAllUser();
+    onLogScreenView('AllUserScreen');
+    getUserData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <View style={styles.page}>
       <Searchbar
-        style={{marginHorizontal: 8, borderRadius: 25, marginTop:10, marginBottom:15}}
+        style={{
+          marginHorizontal: 8, borderRadius: 25, marginTop: 10, marginBottom: 15,
+        }}
         placeholder="Search"
         onChangeText={onChangeSearch}
         value={searchQuery}
@@ -93,7 +97,7 @@ function AllUserScreen() {
         showsVerticalScrollIndicator={false}
         keyExtractor={(Item, index) => index.toString()}
         data={allUser}
-        renderItem={({item}) => (
+        renderItem={({ item }) => (
           <List
             name={item.fullname}
             chat={item.bio}
@@ -112,6 +116,6 @@ export default AllUserScreen;
 const styles = StyleSheet.create({
   page: {
     flex: 1,
-    backgroundColor:'white'
+    backgroundColor: 'white',
   },
 });
