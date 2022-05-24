@@ -19,11 +19,24 @@ function DashboardScreen({ navigation }) {
   const [allUser, setallUser] = useState([]);
 
   useEffect(() => {
-    getAllUser();
+    let isMounted = true;
+
+    const getUserData = () => {
+      if (isMounted) {
+        getData('user').then((res) => {
+          const data = res;
+          data.photo = res?.photo?.length > 1 ? { uri: res.photo } : ILNullPhoto;
+          setProfile(res);
+        });
+      }
+    };
+
     onLogScreenView('DashboardScreen');
     getUserData();
+    getChatList();
 
     return () => {
+      isMounted = false;
       setProfile({});
       setallUser([]);
     };
@@ -31,22 +44,22 @@ function DashboardScreen({ navigation }) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const getUserData = () => {
-    getData('user').then((res) => {
-      const data = res;
-      data.photo = res?.photo?.length > 1 ? { uri: res.photo } : ILNullPhoto;
-      setProfile(res);
-    });
-  };
-
-  const getAllUser = () => {
-    databaseRef()
-      .ref('users/')
+  const getChatList = () => {
+    databaseRef().ref(`chatlist/${profile.uid}/`)
       .once('value')
       .then((snapshot) => {
+        // console.log(Object.values(snapshot.val()));
+        const array = Object.values(snapshot.val());
+
+        const sortedArray = array.sort((a, b) => new Date(b.sendTime)
+          .getTime() - new Date(a.sendTime)
+          .getTime());
+        // console.log('sortedArray ', sortedArray);
+
         setallUser(
-          Object.values(snapshot.val()).filter((it) => it.uid !== profile.uid),
+          sortedArray,
         );
+        // console.log({ ...dataChatList });
       });
   };
 
@@ -106,7 +119,7 @@ function DashboardScreen({ navigation }) {
         renderItem={({ item }) => (
           <List
             name={item.fullname}
-            chat={item.bio}
+            chat={item.lastMsg}
             profile={item.photo}
             type="next"
             onPress={() => createChatList(item)}
