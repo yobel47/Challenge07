@@ -31,9 +31,9 @@ function DashboardScreen({ navigation }) {
       }
     };
 
-    getAllUser();
     onLogScreenView('DashboardScreen');
     getUserData();
+    getChatList();
 
     return () => {
       isMounted = false;
@@ -44,17 +44,28 @@ function DashboardScreen({ navigation }) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const getAllUser = () => {
-    databaseRef()
-      .ref('users/')
+  const getChatList = () => {
+    databaseRef().ref(`chatlist/${profile.uid}/`)
       .once('value')
-      .then((snapshot) => {
+      .then(async (snapshot) => {
+        // console.log(Object.values(snapshot.val()));
+        const array = Object.values(snapshot.val());
+
+        const sortedArray = array.sort((a, b) => new Date(b.sendTime)
+          .getTime() - new Date(a.sendTime)
+          .getTime());
+        // console.log('sortedArray ', sortedArray);
+
+        const dataMsgNotNull = sortedArray.filter((it) => it.lastMsg !== '');
+
+        // console.log('DataMsgNotNull', dataMsgNotNull);
         setallUser(
-          Object.values(snapshot.val()).filter((it) => it.uid !== profile.uid),
+          dataMsgNotNull,
         );
+        // console.log({ ...dataChatList });
       });
   };
-
+  
   const createChatList = (data) => {
     databaseRef()
       .ref(`/chatlist/${profile.uid}/${data.uid}`)
@@ -111,7 +122,7 @@ function DashboardScreen({ navigation }) {
         renderItem={({ item }) => (
           <List
             name={item.fullname}
-            chat={item.bio}
+            chat={item.lastMsg}
             profile={item.photo}
             type="next"
             onPress={() => createChatList(item)}
