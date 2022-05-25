@@ -17,21 +17,21 @@ function DashboardScreen({ navigation }) {
   });
 
   const [allUser, setallUser] = useState([]);
-  const getChatList = () => {
-    databaseRef().ref(`chatlist/${profile.uid}/`)
-      .on('value', (snapshot) => {
-        if (snapshot.val()) {
-          const array = Object.values(snapshot.val());
-          const sortedArray = array.sort((a, b) => new Date(b.sendTime)
-            .getTime() - new Date(a.sendTime)
-            .getTime());
-          const dataMsgNotNull = sortedArray.filter((it) => it.lastMsg !== '');
-          setallUser(
-            dataMsgNotNull,
-          );
-        }
-      });
-  };
+  // const getChatList = () => {
+  //   databaseRef().ref(`chatlist/${profile.uid}/`)
+  //     .on('value', (snapshot) => {
+  //       if (snapshot.val()) {
+  //         const array = Object.values(snapshot.val());
+  //         const sortedArray = array.sort((a, b) => new Date(b.sendTime)
+  //           .getTime() - new Date(a.sendTime)
+  //           .getTime());
+  //         const dataMsgNotNull = sortedArray.filter((it) => it.lastMsg !== '');
+  //         setallUser(
+  //           dataMsgNotNull,
+  //         );
+  //       }
+  //     });
+  // };
 
   useEffect(() => {
     let isMounted = true;
@@ -48,7 +48,7 @@ function DashboardScreen({ navigation }) {
 
     onLogScreenView('DashboardScreen');
     getUserData();
-    getChatList();
+    // getChatList();
 
     return () => {
       isMounted = false;
@@ -57,7 +57,7 @@ function DashboardScreen({ navigation }) {
     };
     // console.log('all user', allUser);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getChatList()]);
+  }, []);
 
   const createChatList = (data) => {
     databaseRef()
