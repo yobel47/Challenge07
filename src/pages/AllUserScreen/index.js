@@ -78,8 +78,15 @@ function AllUserScreen({ navigation }) {
 
           navigation.navigate('ChatScreen', { receiverData: data, profile });
         } else {
+          databaseRef()
+            .ref(`/chatlist/${profile.uid}/${data.uid}`)
+            .update({
+              ...snapshot.val(), photo: data.photo, fullname: data.fullname, bio: data.bio,
+            });
           navigation.navigate('ChatScreen', {
-            receiverData: snapshot.val(),
+            receiverData: {
+              ...snapshot.val(), photo: data.photo, fullname: data.fullname, bio: data.bio,
+            },
             profile,
           });
         }

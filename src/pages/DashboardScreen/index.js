@@ -18,6 +18,7 @@ function DashboardScreen({ navigation }) {
   });
 
   const [allUser, setallUser] = useState([]);
+
   const getChatList = (uid) => {
     databaseRef().ref(`chatlist/${uid}/`)
       .on('value', (snapshot) => {
@@ -34,6 +35,7 @@ function DashboardScreen({ navigation }) {
       });
   };
 
+
   const getUserData = () => {
     getData('user').then((res) => {
       const data = res;
@@ -46,9 +48,8 @@ function DashboardScreen({ navigation }) {
   useEffect(() => {
     onLogScreenView('DashboardScreen');
     getUserData();
-
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getChatList()]);
+  }, []);
 
   const createChatList = (data) => {
     databaseRef()
