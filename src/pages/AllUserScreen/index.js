@@ -18,10 +18,10 @@ function AllUserScreen({ navigation }) {
 
   const [searchQuery, setSearchQuery] = React.useState('');
   const onChangeSearch = (query) => {
-    console.log(query);
+    // console.log(query);
     setSearchQuery(query);
-    getAllUser(profile.uid,query);
-  }
+    getAllUser(profile.uid, query);
+  };
   const [allUser, setallUser] = useState([]);
 
   const getUserData = () => {
@@ -29,17 +29,19 @@ function AllUserScreen({ navigation }) {
       const data = res;
       data.photo = res?.photo?.length > 1 ? { uri: res.photo } : ILNullPhoto;
       setProfile(res);
-      getAllUser(res.uid,'');
+      getAllUser(res.uid, '');
     });
   };
 
-  const getAllUser = (uid,text) => {
+  const getAllUser = (uid, text) => {
     databaseRef()
       .ref('users/')
       .once('value')
       .then((snapshot) => {
         setallUser(
-          Object.values(snapshot.val()).filter((it) => ((it.fullname).toLowerCase().includes(text))&&((it.uid) !== uid)),
+          Object.values(snapshot.val()).filter((it) => ((it.fullname)
+            .toLowerCase()
+            .includes(text)) && ((it.uid) !== uid)),
         );
       });
   };
