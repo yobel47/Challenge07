@@ -157,13 +157,13 @@ function LoginScreen({ navigation }) {
                   .ref(`users/${res.user.uid}/`)
                   .once('value')
                   .then((response) => {
-                    const dataNull = null;
                     const data = {
-                      fullname: dataNull ? res.user.displayName : response.val().fullname,
-                      email: dataNull ? res.user.email : response.val().email,
-                      uid: dataNull ? res.user.uid : response.val().uid,
-                      photo: dataNull ? res.user.photoURL : response.val().photo,
-                      bio: dataNull ? 'null' : response.val().bio,
+                      fullname: response.val() === null
+                        ? res.user.displayName : response.val().fullname,
+                      email: response.val() === null ? res.user.email : response.val().email,
+                      uid: response.val() === null ? res.user.uid : response.val().uid,
+                      photo: response.val() === null ? res.user.photoURL : response.val().photo,
+                      bio: response.val() === null ? 'null' : response.val().bio,
                     };
                     dispatch(setLoading(false));
                     showSuccess('Login Sukses');
