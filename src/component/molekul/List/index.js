@@ -14,7 +14,7 @@ import {
 import { colors, fonts } from '../../../utils';
 
 export default function List({
-  profile, name, chat, type, onPress, icon, desc,
+  profile, name, chat, type, onPress, icon, desc, time,
 }) {
   function Icon() {
     if (icon === 'edit-profile') {
@@ -47,6 +47,7 @@ export default function List({
         <Text style={styles.chat}>{desc}</Text>
       </View>
       {type === 'next' && <IconNext />}
+      <Text>{time}</Text>
     </TouchableOpacity>
   );
 }

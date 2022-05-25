@@ -4,6 +4,7 @@ import {
   FlatList, StyleSheet, View,
 } from 'react-native';
 import uuid from 'react-native-uuid';
+import moment from 'moment';
 import { ILNullPhoto } from '../../assets';
 import { ButtonComponent, Header, List } from '../../component';
 import { databaseRef } from '../../config/Firebase';
@@ -35,13 +36,12 @@ function DashboardScreen({ navigation }) {
       });
   };
 
-
   const getUserData = () => {
     getData('user').then((res) => {
       const data = res;
       data.photo = res?.photo?.length > 1 ? { uri: res.photo } : ILNullPhoto;
       setProfile(res);
-      getChatList(res.uid)
+      getChatList(res.uid);
     });
   };
 
@@ -109,7 +109,7 @@ function DashboardScreen({ navigation }) {
             name={item.fullname}
             chat={item.lastMsg}
             profile={item.photo}
-            type="next"
+            time={moment(item.sendTime).format('h:mm a')}
             onPress={() => createChatList(item)}
           />
         )}
