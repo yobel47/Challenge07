@@ -14,48 +14,40 @@ function DashboardScreen({ navigation }) {
     photo: ILNullPhoto,
     fullname: '',
     bio: '',
+    uid: '',
   });
 
   const [allUser, setallUser] = useState([]);
-  // const getChatList = () => {
-  //   databaseRef().ref(`chatlist/${profile.uid}/`)
-  //     .on('value', (snapshot) => {
-  //       if (snapshot.val()) {
-  //         const array = Object.values(snapshot.val());
-  //         const sortedArray = array.sort((a, b) => new Date(b.sendTime)
-  //           .getTime() - new Date(a.sendTime)
-  //           .getTime());
-  //         const dataMsgNotNull = sortedArray.filter((it) => it.lastMsg !== '');
-  //         setallUser(
-  //           dataMsgNotNull,
-  //         );
-  //       }
-  //     });
-  // };
+
+  const getChatList = (uid) => {
+    databaseRef().ref(`chatlist/${uid}/`)
+      .on('value', (snapshot) => {
+        if (snapshot.val()) {
+          const array = Object.values(snapshot.val());
+          const sortedArray = array.sort((a, b) => new Date(b.sendTime)
+            .getTime() - new Date(a.sendTime)
+            .getTime());
+          const dataMsgNotNull = sortedArray.filter((it) => it.lastMsg !== '');
+          setallUser(
+            dataMsgNotNull,
+          );
+        }
+      });
+  };
+
+
+  const getUserData = () => {
+    getData('user').then((res) => {
+      const data = res;
+      data.photo = res?.photo?.length > 1 ? { uri: res.photo } : ILNullPhoto;
+      setProfile(res);
+      getChatList(res.uid)
+    });
+  };
 
   useEffect(() => {
-    let isMounted = true;
-
-    const getUserData = () => {
-      if (isMounted) {
-        getData('user').then((res) => {
-          const data = res;
-          data.photo = res?.photo?.length > 1 ? { uri: res.photo } : ILNullPhoto;
-          setProfile(res);
-        });
-      }
-    };
-
     onLogScreenView('DashboardScreen');
     getUserData();
-    // getChatList();
-
-    return () => {
-      isMounted = false;
-      setProfile({});
-      setallUser([]);
-    };
-    // console.log('all user', allUser);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
