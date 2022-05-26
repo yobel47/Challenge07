@@ -4,10 +4,10 @@ import { FlatList, StyleSheet, View } from 'react-native';
 import { Searchbar } from 'react-native-paper';
 import uuid from 'react-native-uuid';
 import { ILNullPhoto } from '../../assets';
+import { Header } from '../../component';
 import List from '../../component/molekul/List';
 import { databaseRef } from '../../config/Firebase';
 import { getData, onLogScreenView } from '../../utils';
-import { Header } from '../../component';
 
 function AllUserScreen({ navigation }) {
   const [profile, setProfile] = useState({
@@ -106,7 +106,7 @@ function AllUserScreen({ navigation }) {
       <Header title="Contact" onPress={() => navigation.goBack()} />
       <Searchbar
         style={{
-          marginHorizontal: 8, borderRadius: 25, marginBottom: 15, marginHorizontal: 20
+          borderRadius: 25, marginBottom: 15, marginHorizontal: 20,
         }}
         placeholder="Search"
         onChangeText={onChangeSearch}
