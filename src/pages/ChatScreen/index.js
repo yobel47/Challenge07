@@ -65,7 +65,10 @@ function ChatScreen({ navigation, route }) {
         setallChat((state) => [snapshot.val(), ...state]);
       });
     // Stop listening for updates when no longer required
-    return () => databaseRef().ref(`/messages${receiverData.roomId}`).off('child_added', onChildAdd);
+    return () => {
+      databaseRef().ref(`/messages${receiverData.roomId}`).off('child_added', onChildAdd);
+      setallChat([]);
+    };
   }, [receiverData.roomId]);
 
   return (
