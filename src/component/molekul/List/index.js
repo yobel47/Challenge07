@@ -14,7 +14,7 @@ import {
 import { colors, fonts } from '../../../utils';
 
 export default function List({
-  profile, name, chat, type, onPress, icon, desc, time,
+  profile, name, chat, type, onPress, icon, desc, time, date,
 }) {
   function Icon() {
     if (icon === 'edit-profile') {
@@ -47,7 +47,10 @@ export default function List({
         <Text style={styles.chat}>{desc}</Text>
       </View>
       {type === 'next' && <IconNext />}
-      <Text>{time}</Text>
+      <View style={{ flexDirection: 'column', justifyContent: 'flex-end', alignItems: 'flex-end' }}>
+        <Text style={styles.time}>{time}</Text>
+        <Text style={styles.time}>{date}</Text>
+      </View>
     </TouchableOpacity>
   );
 }
@@ -84,5 +87,11 @@ const styles = StyleSheet.create({
     fontFamily: fonts.primary[400],
     color: colors.text.subtitle,
     textTransform: 'capitalize',
+  },
+
+  time: {
+    color: colors.text.subtitle,
+    fontSize: 12,
+    fontFamily: fonts.primary[600],
   },
 });

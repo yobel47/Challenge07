@@ -109,7 +109,8 @@ function DashboardScreen({ navigation }) {
             name={item.fullname}
             chat={item.lastMsg}
             profile={item.photo}
-            time={moment(item.sendTime).format('h:mm a')}
+            date={moment(item.sendTime).format('YYYY/MM/DD')}
+            time={moment(item.sendTime).format('HH:mm a')}
             onPress={() => createChatList(item)}
           />
         )}
