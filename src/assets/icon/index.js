@@ -12,6 +12,7 @@ import IconNext from './ic-next.svg';
 import IconApp from './ic_app.svg';
 import IconApp2 from './ic_app2.svg';
 import IconGoogle from './ic_google.svg';
+import chatIcon from './chatIcon.png';
 
 export {
   IconAddPhoto,
@@ -28,4 +29,5 @@ export {
   IconApp,
   IconApp2,
   IconGoogle,
+  chatIcon,
 };
