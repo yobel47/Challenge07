@@ -95,6 +95,7 @@ export default function UpdateProfile({ navigation }) {
           label="Full Name"
           value={profile.fullname}
           onChangeText={(value) => onChangeText('fullname', value)}
+          visible={false}
         />
         <Gap height={24} />
         <Input
