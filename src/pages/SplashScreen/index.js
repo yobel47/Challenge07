@@ -31,7 +31,7 @@ function SplashScreen({ navigation }) {
     <View style={styles.page}>
       <IconApp2 style={styles.image} />
       <Text style={styles.title}>MyChatting</Text>
-      <Text style={styles.nickname}>Axel Berkati</Text>
+      <Text style={styles.nickname}>Ridhagama Islamiyah Nur'adha</Text>
     </View>
   );
 }
