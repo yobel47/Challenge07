@@ -2,15 +2,17 @@ import React from 'react';
 import {
   Image, StyleSheet, Text, TouchableOpacity, View,
 } from 'react-native';
+import { chatIcon } from '../../../assets';
 import { colors, fonts } from '../../../utils';
 
 function DashboardProfile({ photo, title, onPress }) {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
+        <Image style={styles.icon} source={chatIcon} />
         <Text style={styles.name}>{title}</Text>
       </View>
-      <TouchableOpacity onPress={onPress}>
+      <TouchableOpacity style={styles.avaWrapper} onPress={onPress}>
         <Image source={photo} style={styles.avatar} />
       </TouchableOpacity>
     </View>
@@ -33,6 +35,8 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
+    flexDirection: 'row',
+    marginLeft: -5,
   },
 
   avatar: {
@@ -42,10 +46,19 @@ const styles = StyleSheet.create({
   },
 
   name: {
-    fontSize: 20,
+    fontSize: 23,
     fontFamily: fonts.primary[600],
     color: colors.text.black,
-    textAlign: 'center',
+    fontWeight: 'bold',
+    marginTop: 4,
   },
-
+  icon: {
+    width: 40,
+    height: 40,
+    marginRight: 10,
+  },
+  avaWrapper: {
+    borderWidth: 1,
+    borderRadius: 46 / 2,
+  },
 });
